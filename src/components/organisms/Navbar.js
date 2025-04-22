@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { FaChevronDown, FaShoppingCart, FaArrowRight } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useCart } from 'ecommerce-mxtech';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  const { products } = useCart();
   const navItems = [
     { name: 'Services', dropdown: false, href: '/#services' },
 
@@ -52,7 +54,12 @@ export default function Navbar() {
 
           {/* Cart */}
           <Link href={'/my-cart'}>
-            <FaShoppingCart className='text-xl text-slate-900 cursor-pointer' />
+            <div className='relative'>
+              <FaShoppingCart className='text-xl text-slate-900 cursor-pointer' />
+              <span className='absolute -top-2 -right-4 bg-yellow-400 text-slate-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center'>
+                {products.length}
+              </span>
+            </div>
           </Link>
 
           {/* CTA */}
